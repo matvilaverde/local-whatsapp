@@ -4,11 +4,12 @@
  *
  */
 import { FontAwesome } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName, Pressable, View } from 'react-native';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -37,9 +38,29 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+    <Stack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: Colors.light.tint,
+      },
+      headerTintColor: Colors.light.background,
+      headerTitleAlign: 'left',
+    }}>
+      <Stack.Screen name="Root" component={TopTabNavigator} options={{
+        title: "WhatsApp",
+        headerRight: () => (
+          <View style={{
+            flexDirection: 'row',
+            width: 60,
+            justifyContent: 'space-between',
+            marginRight: 10,
+          }} >
+            <AntDesign name="search1" size={24} color="white" />
+            <MaterialCommunityIcons name="dots-vertical" size={24} color="white" />
+          </View>
+        )
+      }} />
+      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{
+        title: 'How did you get here?' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
@@ -51,18 +72,18 @@ function RootNavigator() {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const TopTab = createMaterialTopTabNavigator<RootTabParamList>();
 
-function BottomTabNavigator() {
+function TopTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    <BottomTab.Navigator
+    <TopTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
-      <BottomTab.Screen
+      <TopTab.Screen
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
@@ -84,7 +105,7 @@ function BottomTabNavigator() {
           ),
         })}
       />
-      <BottomTab.Screen
+      <TopTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
         options={{
@@ -92,7 +113,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
-    </BottomTab.Navigator>
+    </TopTab.Navigator>
   );
 }
 
