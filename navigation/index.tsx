@@ -3,22 +3,23 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable, View } from 'react-native';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import ModalScreen from '../screens/ModalScreen';
+import NotFoundScreen from '../screens/NotFoundScreen';
+import TabCamera from '../screens/TabCamera';
+import TabChats from '../screens/TabChats';
+import TabStatus from '../screens/TabStatus';
+import TabCalls from '../screens/TabCalls';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -42,6 +43,7 @@ function RootNavigator() {
       headerStyle: {
         backgroundColor: Colors.light.tint,
       },
+      headerShadowVisible: false,
       headerTintColor: Colors.light.background,
       headerTitleAlign: 'left',
     }}>
@@ -79,16 +81,33 @@ function TopTabNavigator() {
 
   return (
     <TopTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="TabChats"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors[colorScheme].background,
+        tabBarStyle: {
+          backgroundColor: Colors[colorScheme].tint,
+        },
+        tabBarIndicatorStyle: {
+          backgroundColor: Colors[colorScheme].background,
+          height: 3,
+        },
+        tabBarLabelStyle: {
+          fontWeight: 'bold',
+        },
       }}>
       <TopTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        name="TabCamera"
+        component={TabCamera}
+        options={{
+          tabBarIcon: ({ color }) => (<FontAwesome5 name="camera" size={24} color={color} />),
+          tabBarShowLabel: false,
+        }}
+      />
+      <TopTab.Screen
+        name="TabChats"
+        component={TabChats}
+        options={({ navigation }: RootTabScreenProps<'TabChats'>) => ({
+          title: 'Conversas',
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -106,11 +125,17 @@ function TopTabNavigator() {
         })}
       />
       <TopTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="TabStatus"
+        component={TabStatus}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Status',
+        }}
+      />
+      <TopTab.Screen
+        name="TabCalls"
+        component={TabCalls}
+        options={{
+          title: 'Chamadas',
         }}
       />
     </TopTab.Navigator>
