@@ -93,6 +93,7 @@ function TopTabNavigator() {
         },
         tabBarLabelStyle: {
           fontWeight: 'bold',
+          width: 100
         },
       }}>
       <TopTab.Screen
