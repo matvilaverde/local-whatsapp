@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     midContainer: {
         justifyContent: 'space-around',
     },
+    topSection: {
+        width: '80%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
     avatar: {
         width: 60,
         height: 60,
@@ -20,16 +25,19 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     username: {
+        width: '70%',
         fontWeight: "bold",
         fontSize: 16,
     },
     lastMessage: {
+        width: '70%',
         fontSize: 16,
-        color: 'grey'
+        color: 'grey',
     },
     time: {
+        width: '50%',
         fontSize: 16,
-        color: 'grey'
+        color: 'grey',
     },
 });
 

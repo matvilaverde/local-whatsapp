@@ -1,16 +1,21 @@
-import { StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import ChatListItem from '../components/ChatListItem';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
-import chatRooms from '../data/ChatRooms';
+import ChatRooms from '../data/ChatRooms';
 
 export default function TabChatsScreen() {
   return (
     <View style={styles.container}>
-      <ChatListItem chatRoom={chatRooms[0]} />
+      <FlatList
+        style={{width: '100%'}}
+        data={ChatRooms}
+        renderItem={({ item }) => <ChatListItem chatRoom={item} />}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 }

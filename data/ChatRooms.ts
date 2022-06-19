@@ -46,6 +46,22 @@ export default [{
         content: 'Uhuhu do mundo da fantasia',
         createdAt: '2022-06-19T18:09:00.000Z',
     },
+}, {
+    id: '4',
+    users: [{
+        id: 'u1',
+        name: 'Yami',
+        imageUri: 'https://i.pinimg.com/originals/2d/7c/1d/2d7c1dff6b99a20aa5e2f467e0acb81b.jpg',
+    }, {
+        id: 'u4',
+        name: 'Granpa',
+        imageUri: 'https://th.bing.com/th/id/OIP.OmPq5aU72wYTHIww0SbKgQHaEK?w=329&h=185&c=7&r=0&o=5&dpr=1.25&pid=1.7',
+    }],
+    lastMessage: {
+        id: 'm4',
+        content: 'Aqui está. O dragão BAIANO de olhos azuis',
+        createdAt: '2022-06-19T18:09:00.000Z',
+    },
 }]
 // [{
 //     id: 'm1',
